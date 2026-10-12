@@ -1,0 +1,73 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id           String            @id @default(uuid())
+  email        String            @unique
+  passwordHash String
+  fullName     String
+  role         Role              @default(CUSTOMER)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  applications LoanApplication[]
+
+  @@map("users")
+}
+
+model LoanPurpose {
+  id           String            @id @default(uuid())
+  code         String            @unique
+  name         String
+  description  String
+  minAmount    Decimal           @db.Decimal(12, 2)
+  maxAmount    Decimal           @db.Decimal(12, 2)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  applications LoanApplication[]
+
+  @@map("loan_purposes")
+}
+
+model LoanApplication {
+  id                   String            @id @default(uuid())
+  userId               String
+  user                 User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName             String
+  nric                 String
+  phoneNumber          String
+  email                String
+  monthlyIncome        Decimal           @db.Decimal(12, 2)
+  loanAmount           Decimal           @db.Decimal(12, 2)
+  tenureMonths         Int
+  purposeId            String
+  purpose              LoanPurpose       @relation(fields: [purposeId], references: [id])
+  status               ApplicationStatus @default(PENDING)
+  creditScore          Int?
+  creditDecisionReason String?           @db.Text
+  submittedAt          DateTime          @default(now())
+  decidedAt            DateTime?
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+  @@index([nric])
+  @@map("loan_applications")
+}
