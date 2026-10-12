@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoanApplicationDto, ApplicationStatus } from '../types';
 import { StatusBadge } from './StatusBadge';
-import { X, Calendar, User, Phone, Mail, IdCard, DollarSign, Clock, ShieldAlert, Sparkles, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { X, Calendar, User, Phone, Mail, CreditCard, DollarSign, Clock, ShieldAlert, Sparkles, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 interface ApplicationDetailModalProps {
   application: LoanApplicationDto | null;
@@ -132,7 +132,7 @@ export const ApplicationDetailModal: React.FC<ApplicationDetailModalProps> = ({
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <IdCard className="w-4 h-4 text-slate-400" />
+                <CreditCard className="w-4 h-4 text-slate-400" />
                 <div>
                   <span className="text-xs text-slate-500 block">Malaysian NRIC</span>
                   <span className="text-sm font-mono font-semibold text-slate-800">{application.nric}</span>
