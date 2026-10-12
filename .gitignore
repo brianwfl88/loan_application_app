@@ -4,6 +4,7 @@ build/
 .nx/
 .cache/
 coverage/
+*.tsbuildinfo
 
 .env
 .env.local
