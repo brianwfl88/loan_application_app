@@ -8,7 +8,7 @@ async function bootstrap() {
 
   // Enable CORS for frontend Vite development
   app.enableCors({
-    origin: true,
+    origin: [process.env.FRONTEND_URL || 'http://localhost:3000'],
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   });
