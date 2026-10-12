@@ -190,9 +190,8 @@ async function main() {
     const loanAmount = getRandomInt(Number(purpose.minAmount), Number(purpose.maxAmount));
     const tenureMonths = getRandomItem([12, 24, 36, 48, 60, 72, 84]);
 
-    // Outcome distribution: 50% APPROVED, 35% REJECTED, 15% PENDING
     const rand = Math.random();
-    let status = ApplicationStatus.PENDING;
+    let status: ApplicationStatus = ApplicationStatus.PENDING;
     let creditScore: number | null = null;
     let creditDecisionReason: string | null = null;
     let decidedAt: Date | null = null;
