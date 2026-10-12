@@ -52,3 +52,12 @@ This document discloses the use of AI tools in accordance with the assessment in
 - **Initial AI Suggestion**: Loop through 10,000 records calling `prisma.loanApplication.create()` one by one.
 - **Decision**: **Rejected individual insert; replaced with chunked batch `createMany` (1,000 records per chunk)**.
 - **Why**: Individual inserts for 10,000 rows over TCP would take several minutes and potentially time out. Batch insertion in chunks of 1,000 reduces the execution time to under 4 seconds.
+
+---
+
+### 5. Enum & Contract Import Architecture (Decoupling from `@prisma/client`)
+- **Initial Code Pattern**: Importing domain enums (`Role`, `ApplicationStatus`) directly from `@prisma/client`.
+- **Issue Discovered**: When the project is initialized or before `prisma generate` completes, `@prisma/client` defaults to the ungenerated stub, throwing `error TS2305: Module '"@prisma/client"' has no exported member 'ApplicationStatus'` / `'Role'`.
+- **Decision & Fix**: Centralized and exported all domain enums (`Role`, `ApplicationStatus`, `UserRole`) from the monorepo shared contract library `@rhb/shared-types`. Updated all backend controllers, services, guards, decorators, DTOs, and the seed script to import enums from `@rhb/shared-types`.
+- **Why**: Completely eliminates compilation dependencies on the Prisma code-generation lifecycle, guaranteeing zero build/runtime import errors across cold installs and CI pipelines.
+

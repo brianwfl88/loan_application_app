@@ -1,6 +1,6 @@
 import { IsOptional, IsEnum, IsInt, Min, Max, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ApplicationStatus } from '@prisma/client';
+import { ApplicationStatus } from '@rhb/shared-types';
 
 export class QueryApplicationsDto {
   @IsOptional()

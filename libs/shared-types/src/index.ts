@@ -1,7 +1,10 @@
-export enum UserRole {
+export enum Role {
   CUSTOMER = 'CUSTOMER',
   ADMIN = 'ADMIN',
 }
+
+export const UserRole = Role;
+export type UserRole = Role;
 
 export enum ApplicationStatus {
   PENDING = 'PENDING',

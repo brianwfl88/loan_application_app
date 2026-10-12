@@ -2,7 +2,7 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { ApplicationGateway } from '../events/application.gateway';
-import { ApplicationStatus } from '@prisma/client';
+import { ApplicationStatus } from '@rhb/shared-types';
 
 @Injectable()
 export class CreditCheckService implements OnModuleInit {

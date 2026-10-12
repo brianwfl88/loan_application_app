@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreditCheckService } from '../credit-check/credit-check.service';
 import { CreateApplicationDto } from './dto/create-application.dto';
 import { QueryApplicationsDto } from './dto/query-applications.dto';
-import { Role, ApplicationStatus, Prisma } from '@prisma/client';
+import { Role, ApplicationStatus } from '@rhb/shared-types';
 
 @Injectable()
 export class ApplicationsService {
@@ -84,7 +84,7 @@ export class ApplicationsService {
     const limit = query.limit || 20;
     const skip = (page - 1) * limit;
 
-    const where: Prisma.LoanApplicationWhereInput = {
+    const where: any = {
       userId,
       ...(query.status ? { status: query.status } : {}),
     };
@@ -143,7 +143,7 @@ export class ApplicationsService {
     const limit = query.limit || 20;
     const skip = (page - 1) * limit;
 
-    const where: Prisma.LoanApplicationWhereInput = {};
+    const where: any = {};
 
     if (query.status) {
       where.status = query.status;

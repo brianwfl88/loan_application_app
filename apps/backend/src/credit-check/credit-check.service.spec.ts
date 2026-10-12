@@ -3,7 +3,7 @@ import { CreditCheckService } from './credit-check.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { ConfigService } from '@nestjs/config';
 import { ApplicationGateway } from '../events/application.gateway';
-import { ApplicationStatus } from '@prisma/client';
+import { ApplicationStatus } from '@rhb/shared-types';
 
 describe('CreditCheckService', () => {
   let service: CreditCheckService;
