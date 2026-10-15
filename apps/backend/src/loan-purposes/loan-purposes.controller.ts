@@ -12,6 +12,7 @@ export class LoanPurposesController {
     @Res() res: Response,
   ) {
     const forceFresh = fresh === 'true';
+    await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulate slow core banking system
     const result = await this.loanPurposesService.getLoanPurposes(forceFresh);
 
     res.setHeader('X-Cache', result.cached ? 'HIT' : 'MISS');
